@@ -1,0 +1,30 @@
+{
+  "name": "pi-codemaps",
+  "version": "0.1.0",
+  "description": "Codemap commands for Pi coding agent.",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "codemaps"
+  ],
+  "license": "GPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yippiez/pi-codemaps.git"
+  },
+  "files": [
+    "extensions",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./extensions"
+    ]
+  },
+  "peerDependencies": {
+    "@mariozechner/pi-coding-agent": "*",
+    "@mariozechner/pi-tui": "*"
+  }
+}
