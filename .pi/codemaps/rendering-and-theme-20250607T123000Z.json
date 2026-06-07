@@ -1,0 +1,116 @@
+{
+  "title": "Rendering & Theme Helpers",
+  "prompt": "How rendering, ANSI styling, and theme integration work in the codemaps extension",
+  "createdAt": "2026-06-07T12:30:00.000Z",
+  "files": [
+    {
+      "id": "inline-styler",
+      "label": "renderStyledInline",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Parses inline markdown tokens: backticks, **bold**, *italic*, and file paths",
+          "target": "renderStyledInline"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "Uses `theme.fg()` for foreground color and `theme.italic()`, `theme.underline()`",
+          "target": "Theme API"
+        },
+        {
+          "type": "dependency",
+          "symbol": "⫘",
+          "text": "Relies on `withForeground()` helper to safely call theme methods"
+        }
+      ]
+    },
+    {
+      "id": "row-renderers",
+      "label": "List & View Row Renders",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`renderListRow()` – two-line rows for the list screen (title + preview)",
+          "target": "renderListRow"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`renderFileRow()` – single-line file header with expand/collapse indicator",
+          "target": "renderFileRow"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`renderRelationLines()` – multi-line relation item with wrapped text and notes",
+          "target": "renderRelationLines"
+        }
+      ]
+    },
+    {
+      "id": "layout-utils",
+      "label": "Layout Utilities",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`fillToWidth()` – pads a string to exact width with spaces"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`withBackground()` – safely fills a line and applies theme background"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`makeDivider()` – renders a horizonal rule using `theme.fg('borderMuted')`"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`truncateToWidth()` and `wrapTextWithAnsi()` from pi-tui"
+        }
+      ]
+    },
+    {
+      "id": "relation-colors",
+      "label": "Relation Type Colors",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`relevance`   → red (31)  `=>`",
+          "notes": "Default association symbol"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`calls`       → yellow (33)  `->`"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`dependency`  → cyan (36)  `⫘`"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`called-by`   → red (31)  `<-`"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Custom types   → white (37)  `•`"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "title": "Project File Map",
+  "prompt": "Map the files and directories in the pi-codemaps project",
+  "createdAt": "2026-06-07T12:15:00.000Z",
+  "files": [
+    {
+      "id": "root-config",
+      "label": "package.json",
+      "path": "package.json",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Defines the package as `pi-codemaps` with `pi` field pointing to extension",
+          "target": "pi.extensions"
+        },
+        {
+          "type": "dependency",
+          "symbol": "⫘",
+          "text": "Peer-depends on `@mariozechner/pi-coding-agent` and `@mariozechner/pi-tui`"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "Extension entry at `./extensions` loaded by pi runtime",
+          "target": "extensions/codemaps.ts"
+        }
+      ]
+    },
+    {
+      "id": "ext-dir",
+      "label": "extensions/",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Single-file extension with ~600 lines of TypeScript",
+          "notes": "Contains all screens, rendering helpers, normalization, and I/O"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "Uses Node.js built-ins: `spawnSync`, `mkdir`, `readdir`, `readFile`, `stat`",
+          "target": "node:child_process / node:fs/promises"
+        },
+        {
+          "type": "dependency",
+          "symbol": "⫘",
+          "text": "Imports `ExtensionAPI` and `ExtensionCommandContext` from pi SDK"
+        }
+      ]
+    },
+    {
+      "id": "run-script",
+      "label": "run.sh",
+      "path": "run.sh",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Launches pi with the codemaps extension pre-loaded",
+          "notes": "Uses `pi -e ./extensions/codemaps.ts`"
+        }
+      ]
+    },
+    {
+      "id": "meta-files",
+      "label": "Meta / Docs",
+      "path": ".",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "README.md – install instructions and command reference"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "LICENSE – GPL-3.0-only"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": ".pi/codemaps/ – runtime directory for saved codemap JSON files"
+        }
+      ]
+    }
+  ]
+}

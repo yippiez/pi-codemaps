@@ -1,0 +1,137 @@
+{
+  "title": "Codemaps Extension Overview",
+  "prompt": "Show the main parts of the codemaps extension and how they interact",
+  "createdAt": "2026-06-07T12:00:00.000Z",
+  "files": [
+    {
+      "id": "entrypoint",
+      "label": "codemaps.ts",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Registers `/codemap:create` and `/codemap:list` slash commands",
+          "target": "codemapsExtension"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "Delegates to `runCodemapGeneration()` for create and refresh",
+          "target": "runCodemapGeneration"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "Delegates to `showCodemapList()` for the list UI",
+          "target": "showCodemapList"
+        },
+        {
+          "type": "dependency",
+          "symbol": "⫘",
+          "text": "Uses `@mariozechner/pi-coding-agent` for `ExtensionAPI`, `ExtensionCommandContext`",
+          "notes": "Peer dependency declared in package.json"
+        },
+        {
+          "type": "dependency",
+          "symbol": "⫘",
+          "text": "Uses `@mariozechner/pi-tui` for `matchesKey`, `truncateToWidth`, `visibleWidth`, `wrapTextWithAnsi`",
+          "notes": "Peer dependency declared in package.json"
+        }
+      ]
+    },
+    {
+      "id": "list-screen",
+      "label": "CodemapListScreen",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Renders a scrollable list of saved codemap entries",
+          "target": "CodemapListScreen"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "Reads entries from `listSavedCodemaps()` on construction",
+          "target": "listSavedCodemaps"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "Each row shows title + prompt preview via `renderListRow()`",
+          "target": "renderListRow"
+        },
+        {
+          "type": "called-by",
+          "symbol": "<-",
+          "text": "Invoked by `ctx.ui.custom()` inside `showCodemapList()`",
+          "target": "showCodemapList"
+        }
+      ]
+    },
+    {
+      "id": "view-screen",
+      "label": "CodemapViewScreen",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Full read-only view of a single codemap document",
+          "target": "CodemapViewScreen"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "Renders file rows with expand/collapse via `renderFileRow()`",
+          "target": "renderFileRow"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "Renders relation items via `renderRelationLines()`",
+          "target": "renderRelationLines"
+        },
+        {
+          "type": "called-by",
+          "symbol": "<-",
+          "text": "Invoked by `ctx.ui.custom()` inside `showCodemapView()`",
+          "target": "showCodemapView"
+        }
+      ]
+    },
+    {
+      "id": "normalization",
+      "label": "Parsing & Normalization",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Handles both modern and legacy codemap JSON formats",
+          "target": "readCodemapDocument"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "`normalizeCodemapDocument()` for the current format",
+          "target": "normalizeCodemapDocument"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "`normalizeLegacyCodemapDocument()` for the old format",
+          "target": "normalizeLegacyCodemapDocument"
+        },
+        {
+          "type": "calls",
+          "symbol": "->",
+          "text": "`normalizeFileItem()` and `normalizeRelationItem()` for sub-structures",
+          "target": "normalizeRelationItem"
+        }
+      ]
+    }
+  ]
+}

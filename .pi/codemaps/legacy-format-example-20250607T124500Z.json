@@ -1,0 +1,25 @@
+{
+  "title": "Legacy Format Codemap (auto-detected)",
+  "prompt": "Show backward-compatible legacy codemap format",
+  "createdAt": "2026-06-07T12:45:00.000Z",
+  "codemap": {
+    "title": "Legacy Codemap Example",
+    "refs": [
+      {
+        "path": "extensions/codemaps.ts",
+        "claim": "The normalizer handles this legacy {path, claim, symbol} format",
+        "symbol": "normalizeLegacyCodemapDocument"
+      },
+      {
+        "path": "extensions/codemaps.ts",
+        "claim": "Detects old format by checking for `codemap` or `refs` keys",
+        "symbol": "readCodemapDocument"
+      },
+      {
+        "path": "extensions/codemaps.ts",
+        "claim": "Legacy entries are converted to `relevance` type with `=>` symbol",
+        "symbol": "normalizeRelationItem"
+      }
+    ]
+  }
+}

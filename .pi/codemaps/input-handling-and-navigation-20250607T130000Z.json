@@ -1,0 +1,129 @@
+{
+  "title": "Input Handling & Screen Navigation",
+  "prompt": "Map the keyboard input handling and navigation flow between screens",
+  "createdAt": "2026-06-07T13:00:00.000Z",
+  "files": [
+    {
+      "id": "list-input",
+      "label": "CodemapListScreen.handleInput",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`escape/q` → back to chat (returns `{type: 'back'}`)",
+          "target": "ListAction"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`up/k` / `down/j` → wrap-around navigation through entries",
+          "target": "wrapIndex"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`enter/return` → open selected codemap view",
+          "target": "CodemapViewScreen"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`r` → regenerate (refresh) the selected codemap",
+          "target": "runCodemapGeneration"
+        }
+      ]
+    },
+    {
+      "id": "view-input",
+      "label": "CodemapViewScreen.handleInput",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`escape/q` → back to list (preserves scroll + collapsed state)",
+          "target": "ViewAction"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`up/k` / `down/j` → select previous/next file",
+          "target": "clampIndex"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`space` → toggle collapse on selected file's relation items"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`enter/return` → open file in `$EDITOR` via `openFileInEditor()`",
+          "target": "openFileInEditor"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`r` → regenerate (refresh) the current codemap",
+          "target": "runCodemapGeneration"
+        }
+      ]
+    },
+    {
+      "id": "nav-flow",
+      "label": "Screen Navigation Flow",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`showCodemapList()` → `CodemapListScreen` → returns `ListAction`"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "  → `'back'` exits, `'refresh'` regenerates, `'open'` → `showCodemapView()`"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "`showCodemapView()` → `CodemapViewScreen` → returns `ViewAction`"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "  → `'back'` returns to list, `'refresh'` regenerates, `'open'` calls editor"
+        },
+        {
+          "type": "dependency",
+          "symbol": "⫘",
+          "text": "Both screens use `ctx.ui.custom()` from pi TUI SDK",
+          "notes": "The custom screen API lets us draw arbitrary TUI content and handle input"
+        }
+      ]
+    },
+    {
+      "id": "editor",
+      "label": "openFileInEditor",
+      "path": "extensions/codemaps.ts",
+      "items": [
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Resolves the file path (relative → absolute via ctx.cwd)"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Spawns `$EDITOR` via `sh -lc` with `spawnSync` and `inherit` stdio"
+        },
+        {
+          "type": "relevance",
+          "symbol": "=>",
+          "text": "Shows error notification if `EDITOR` unset or spawn fails"
+        }
+      ]
+    }
+  ]
+}
