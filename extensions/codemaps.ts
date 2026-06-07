@@ -479,9 +479,9 @@ class CodemapListScreen {
 
 function renderRelationLines(theme: Theme, item: CodemapRelationItem, width: number): string[] {
 	const relationColor = getRelationTypeColor(item.type);
-	const symbol = withAnsiColor(item.symbol, relationColor, true);
+	const typeLabel = withAnsiColor(getRelationDisplayLabel(item.type).toUpperCase(), relationColor, true);
 	const target = item.target ? ` (${item.target})` : "";
-	const text = `   ${symbol}${" ".repeat(getRelationSymbolSpacing(item.symbol))}${renderStyledInline(theme, item.text)}${renderStyledInline(theme, target, "dim")}`;
+	const text = `   ${typeLabel} ${renderStyledInline(theme, item.text)}${renderStyledInline(theme, target, "dim")}`;
 	const wrapped = wrapTextWithAnsi(text, Math.max(12, width));
 	const lines = wrapped.length > 0 ? wrapped : [text];
 
@@ -590,7 +590,7 @@ class CodemapViewScreen {
 		lines.push(makeDivider(this.theme, w));
 
 		const headerHeight = lines.length;
-		const footerHeight = 2;
+		const footerHeight = 3;
 		const bodyHeight = Math.max(4, totalRows - headerHeight - footerHeight);
 		const bodyLines: string[] = [];
 		const fileTopLines = new Map<number, number>();
@@ -626,6 +626,11 @@ class CodemapViewScreen {
 		}
 
 		lines.push(makeDivider(this.theme, w));
+		const legendTypes = ["relevance", "calls", "dependency", "called-by"];
+		const legend = legendTypes
+			.map((type) => `${withAnsiColor(getRelationDisplayLabel(type).toUpperCase(), getRelationTypeColor(type), true)}`)
+			.join("  ");
+		lines.push(truncateToWidth(this.theme.fg("dim", legend), w));
 		lines.push(truncateToWidth(this.theme.fg("dim", "enter open file  space collapse  r regenerate  q back"), w));
 		return lines.slice(0, totalRows);
 	}
